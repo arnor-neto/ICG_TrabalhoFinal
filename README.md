@@ -1,2 +1,9 @@
-# ICG_TrabalhoFinal
-Trabalho final da disciplina Introdução à Computação Gráfica no período 2018.1 da Universidade Federal da Paraíba.
+# Introdução à Computação Gráfica
+
+## Trabalho Final: Desenvolvimento de um jogo usando OpenGL
+
+Projeto desenvolvido pelos alunos:
+
+Arnôr Martiniano da Silva Neto
+
+Dandara Estrela Braga
