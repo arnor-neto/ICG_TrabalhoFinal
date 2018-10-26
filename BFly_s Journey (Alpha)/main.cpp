@@ -73,6 +73,8 @@ void Desenha(void)
 
 	glPushMatrix();
 
+	//glRotatef(10, 1.0f, 0.0f, 0.0f);
+
 	desenhaFlor();
 
 	glPopMatrix();
@@ -213,10 +215,10 @@ void setasTeclado(int key, int x, int y)
 void Inicializa(void)
 {
 
-	GLfloat luzAmbiente[4] = {0.4, 0.4, 0.4, 1.0};
-	GLfloat luzDifusa[4] = {0.6, 0.6, 0.6, 1.0};	// "cor"
+	GLfloat luzAmbiente[4] = {0.2, 0.2, 0.2, 1.0};
+	GLfloat luzDifusa[4] = {0.8, 0.8, 0.8, 1.0};	// "cor"
 	GLfloat luzEspecular[4] = {1.0, 1.0, 1.0, 1.0}; // "brilho"
-	GLfloat posicaoLuz[4] = {0.0, 20.0, 0.0, 1.0};
+	GLfloat posicaoLuz[4] = {0.0, 50.0, 50.0, 1.0};
 
 	// Capacidade de brilho do material
 	GLfloat especularidade[4] = {1.0, 1.0, 1.0, 1.0};
@@ -248,12 +250,15 @@ void Inicializa(void)
 	glEnable(GL_LIGHTING);
 	// Habilita a luz de número 0
 	glEnable(GL_LIGHT0);
+
 	// Habilita o depth-buffering
 	glEnable(GL_DEPTH_TEST);
 
 	//glEnable(GL_NORMALIZE);
 
 	//EspecificaParametrosVisualizacao();
+
+	generateBFLists();
 }
 
 // Programa Principal
@@ -272,4 +277,5 @@ int main(int argc, char **argv)
 	glutMouseFunc(GerenciaMouse);
 	Inicializa();
 	glutMainLoop();
+
 }

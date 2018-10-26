@@ -9,12 +9,16 @@ GLfloat wingFactor = 5.0f;
 GLuint leftWing_tex;
 GLuint rightWing_tex;
 
+GLuint leftWing_tex_list;
+GLuint rightWing_tex_list;
+GLuint bFlyBody_tex_list;
+
 int cont = 0;
 
 void desenhaBorboleta()
 {
 
-    glScalef(0.55, 0.55, 0.55);
+    glScalef(0.7, 0.7, 0.7);
 
     glTranslatef(0.0, 2.0, 0.0);
 
@@ -33,20 +37,44 @@ void desenhaBorboleta()
     
     glRotatef(wingAngle, 0.0f, 0.0f, 1.0f);
 
+    //chamando list left
+    glCallList(leftWing_tex_list);
+
+    glPopMatrix();
+
+    glPushMatrix();
+
+    glRotatef(-wingAngle, 0.0f, 0.0f, 1.0f);
+
+    // chamar lista right wing
+    glCallList(rightWing_tex_list);
+
+    glPopMatrix();
+
+    // chamar lista body
+    glCallList(bFlyBody_tex_list);
+
+}
+
+void generateBFLists(){
+
+    leftWing_tex_list = glGenLists(1);
+    glNewList(leftWing_tex_list, GL_COMPILE);
+
     objl::Loader loader;
 
     loader.LoadFile("Assets/leftWing.obj");
 
     objl::Mesh curMesh = loader.LoadedMeshes[0];
 
-    if (cont == 0)
-    {
+    //if (cont == 0)
+    //{
         leftWing_tex = SOIL_load_OGL_texture(
             "Assets/texEsq.png",
             SOIL_LOAD_AUTO,
             SOIL_CREATE_NEW_ID,
             SOIL_FLAG_INVERT_Y);
-    }
+    //}
 
     glEnable(GL_TEXTURE_2D);
 
@@ -68,23 +96,22 @@ void desenhaBorboleta()
     }
     glEnd();
 
-    glPopMatrix();
+    glEndList();
 
-    glPushMatrix();
-
-    glRotatef(-wingAngle, 0.0f, 0.0f, 1.0f);
+    rightWing_tex_list = glGenLists(1);
+    glNewList(rightWing_tex_list, GL_COMPILE);
 
     loader.LoadFile("Assets/rightWing.obj");
 
-    if (cont == 0)
-    {
+    //if (cont == 0)
+    //{
         rightWing_tex = SOIL_load_OGL_texture(
             "Assets/texDir.png",
             SOIL_LOAD_AUTO,
             SOIL_CREATE_NEW_ID,
             SOIL_FLAG_INVERT_Y);
         cont++;
-    }
+    //}
     curMesh = loader.LoadedMeshes[0];
 
     glBindTexture(GL_TEXTURE_2D, rightWing_tex);
@@ -105,7 +132,10 @@ void desenhaBorboleta()
     }
     glEnd();
 
-    glPopMatrix();
+    glEndList();
+
+    bFlyBody_tex_list = glGenLists(1);
+    glNewList(bFlyBody_tex_list, GL_COMPILE);
 
     loader.LoadFile("Assets/bFlyBody.obj");
 
@@ -127,5 +157,6 @@ void desenhaBorboleta()
     }
     glEnd();
 
-    glDisable(GL_TEXTURE_2D);
+    glEndList();
+
 }
